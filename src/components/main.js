@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { nanoid } from "nanoid";
-import Confetti from 'react-confetti'
+import Confetti from "react-confetti";
 import "../styles/main.css";
 import Die from "./die";
 
@@ -31,9 +31,11 @@ const Main = () => {
 
   const rollDice = () =>
     setDices((prevState) =>
-      prevState.map((dice) => {
-        return dice.isHeld ? dice : generateNewDie();
-      })
+      tenzies
+        ? initializeState()
+        : prevState.map((dice) => {
+            return dice.isHeld ? dice : generateNewDie();
+          })
     );
 
   const hold = (id) => {
@@ -62,7 +64,9 @@ const Main = () => {
 
   return (
     <div className="main-container">
-      {tenzies && <Confetti width={window.innerWidth} height={window.innerHeight} />}
+      {tenzies && (
+        <Confetti width={window.innerWidth} height={window.innerHeight} />
+      )}
       <h1>Tenzies</h1>
       <p>
         Roll until all dice are the same. <br />
@@ -70,9 +74,8 @@ const Main = () => {
       </p>
       {dices && <div className="dice-grid">{dice}</div>}
       <button className="roll-btn" onClick={rollDice}>
-        { tenzies ? "New Game" : "Roll" }
+        {tenzies ? "New Game" : "Roll"}
       </button>
-      {tenzies && <span className="winner">You Won !!!!</span>}
     </div>
   );
 };
