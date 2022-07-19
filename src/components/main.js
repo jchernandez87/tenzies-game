@@ -21,25 +21,39 @@ const Main = () => {
 
   const rollDice = () => setDices(initializeState());
 
-  const hold = (event, obj) => {
-    event.stopPropagation()
-    setDices((prevDices) => {
-      const newArr = [];
-      prevDices.forEach((dice) => {
-        dice.id === obj.id
-          ? newArr.push({
-              ...dice,
-              isHeld: !obj.isHeld,
-            })
-          : newArr.push(dice);
-      });
-      return newArr;
-    });
+  // const hold = (obj) => {
+  //   setDices((prevDices) => {
+  //     const newArr = [];
+  //     prevDices.forEach((dice) => {
+  //       dice.id === obj.id
+  //         ? newArr.push({
+  //             ...dice,
+  //             isHeld: !obj.isHeld,
+  //           })
+  //         : newArr.push(dice);
+  //     });
+  //     return newArr;
+  //   });
+  // };
+
+  const hold = (id) => {
+    setDices((prevDices) =>
+      prevDices.map((item) => {
+        return item.id === id
+          ? {
+              ...item,
+              isHeld: !item.isHeld,
+            }
+          : item;
+      })
+    );
   };
 
   const dice = dices.map((item) => (
     <Die
-      holding={(event) => hold(event, item)}
+      holding={() => {
+        hold(item.id);
+      }}
       key={item.id}
       num={item.myNum}
       myColor={item.isHeld}
