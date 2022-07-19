@@ -1,7 +1,8 @@
 import "../styles/die.css";
 
 const Die = (props) => (
-  <div className="die">
+  
+  <div onClick={props.holding} className={`die ${props.myColor ? "green": "white"}`} >
     <span>{props.num}</span>
   </div>
 );
