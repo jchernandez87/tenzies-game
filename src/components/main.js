@@ -20,13 +20,13 @@ const Main = () => {
   };
 
   const [dices, setDices] = useState(initializeState());
-  const [tenzies, setTenzies] = useState(false)
+  const [tenzies, setTenzies] = useState(false);
 
   useEffect(() => {
-    const allTrue = (obj) => obj.isHeld === true
-    const sameNum = (obj) => obj.myNum === dices[0].myNum
-    setTenzies(prevTenzies => dices.every(allTrue) && dices.every(sameNum) ? true : false)
-  }, [dices])
+    const allTrue = (obj) => obj.isHeld === true;
+    const sameNum = (obj) => obj.myNum === dices[0].myNum;
+    setTenzies(dices.every(allTrue) && dices.every(sameNum) ? true : false);
+  }, [dices]);
 
   const rollDice = () =>
     setDices((prevState) =>
