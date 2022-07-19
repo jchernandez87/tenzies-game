@@ -1,28 +1,38 @@
+import { useState } from "react";
 import "../styles/main.css";
 import Die from "./die";
 
 const Main = () => {
-  const allNewDice = [];
+  const [dices, setDices] = useState([]);
 
-  for (let i = 0; i < 10; i++) {
-    const randomNum = Math.floor(Math.random() * 6 + 1);
-    allNewDice.push({
-      id: i + 1,
-      myNum: randomNum,
-    });
-  }
+  const rollDice = () => {
+    const allNewDice = [];
 
-  const dice = allNewDice.map((item) => <Die key={item.id} num={item.myNum} />);
+    for (let i = 0; i < 10; i++) {
+      const randomNum = Math.ceil(Math.random() * 6);
+      allNewDice.push({
+        id: i + 1,
+        myNum: randomNum,
+      });
+    }
+    const dice = allNewDice.map((item) => (
+      <Die key={item.id} num={item.myNum} />
+    ));
+
+    setDices(dice);
+  };
 
   return (
     <div className="main-container">
-      {console.log(allNewDice)}
       <h1>Tenzies</h1>
       <p>
         Roll until all dice are the same. <br />
         Click each die to freeze it at its current value between rolls.
       </p>
-      <div className="dice-grid">{dice}</div>
+      <div className="dice-grid">{dices}</div>
+      <button className="roll-btn" onClick={rollDice}>
+        Roll
+      </button>
     </div>
   );
 };

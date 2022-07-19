@@ -41,6 +41,19 @@
   text-align: center;
 }
 
+.roll-btn {
+  cursor: pointer;
+  margin-top: 30px;
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  color: white;
+  font-size: 22px;
+  background-color: #5035ff;
+  padding: 12px 50px;
+  border-radius: 5px;
+  border: none;
+}
+
 @media only screen and (min-width: 800px) {
   .main-container > h1 {
     font-family: "Karla", sans-serif;
