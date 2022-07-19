@@ -1,34 +1,37 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { nanoid } from "nanoid";
 import "../styles/main.css";
 import Die from "./die";
 
 const Main = () => {
+  const generateNewDie = () => ({
+    id: nanoid(),
+    myNum: Math.ceil(Math.random() * 6),
+    isHeld: false,
+  });
+
   const initializeState = () => {
     const allNewDice = [];
 
     for (let i = 0; i < 10; i++) {
-      allNewDice.push({
-        id: nanoid(),
-        myNum: Math.ceil(Math.random() * 6),
-        isHeld: false,
-      });
+      allNewDice.push(generateNewDie());
     }
     return allNewDice;
   };
 
   const [dices, setDices] = useState(initializeState());
+  const [tenzies, setTenzies] = useState(false)
+
+  useEffect(() => {
+    const allTrue = (obj) => obj.isHeld === true
+    const sameNum = (obj) => obj.myNum === dices[0].myNum
+    setTenzies(prevTenzies => dices.every(allTrue) && dices.every(sameNum) ? true : false)
+  }, [dices])
 
   const rollDice = () =>
     setDices((prevState) =>
       prevState.map((dice) => {
-        return dice.isHeld
-          ? dice
-          : {
-              id: nanoid(),
-              myNum: Math.ceil(Math.random() * 6),
-              isHeld: false,
-            };
+        return dice.isHeld ? dice : generateNewDie();
       })
     );
 
@@ -67,6 +70,7 @@ const Main = () => {
       <button className="roll-btn" onClick={rollDice}>
         Roll
       </button>
+      {tenzies && <span className="winner">You Won !!!!</span>}
     </div>
   );
 };
