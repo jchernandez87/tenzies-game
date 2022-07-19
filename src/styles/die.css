@@ -1,0 +1,26 @@
+.die {
+  border-radius: 8px;
+  color: #2b283a;
+  font-family: "Karla", sans-serif;
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: 0em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  height: 38px;
+  width: 40px;
+  color: #2b283a;
+  -webkit-box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.21);
+  -moz-box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.21);
+  box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.21);
+}
+
+@media only screen and (min-width: 800px) {
+  .die {
+    height: 55px;
+    width: 65px;
+    font-size: 26px;
+  }
+}
