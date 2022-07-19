@@ -1,40 +1,36 @@
 import { useState } from "react";
+import { nanoid } from "nanoid";
 import "../styles/main.css";
 import Die from "./die";
 
 const Main = () => {
-  const [dices, setDices] = useState([]);
-
   const initializeState = () => {
     const allNewDice = [];
 
     for (let i = 0; i < 10; i++) {
-      const randomNum = Math.ceil(Math.random() * 6);
       allNewDice.push({
-        id: i + 1,
-        myNum: randomNum,
+        id: nanoid(),
+        myNum: Math.ceil(Math.random() * 6),
         isHeld: false,
       });
     }
     return allNewDice;
   };
 
-  const rollDice = () => setDices(initializeState());
+  const [dices, setDices] = useState(initializeState());
 
-  // const hold = (obj) => {
-  //   setDices((prevDices) => {
-  //     const newArr = [];
-  //     prevDices.forEach((dice) => {
-  //       dice.id === obj.id
-  //         ? newArr.push({
-  //             ...dice,
-  //             isHeld: !obj.isHeld,
-  //           })
-  //         : newArr.push(dice);
-  //     });
-  //     return newArr;
-  //   });
-  // };
+  const rollDice = () =>
+    setDices((prevState) =>
+      prevState.map((dice) => {
+        return dice.isHeld
+          ? dice
+          : {
+              id: nanoid(),
+              myNum: Math.ceil(Math.random() * 6),
+              isHeld: false,
+            };
+      })
+    );
 
   const hold = (id) => {
     setDices((prevDices) =>
